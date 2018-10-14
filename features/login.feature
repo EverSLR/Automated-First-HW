@@ -1,3 +1,4 @@
+@login
 Feature: Login
 
     As a client  I should be able to login using my credentials

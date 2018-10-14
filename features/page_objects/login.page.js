@@ -18,11 +18,8 @@ class LoginPage extends Page {
         return browser.element('#loginfrm > button');
     }
 
-    open(max){
-        if (max) {
-            browser.windowHandleMaximize('{' + browser.windowHandle().value + '}');
-        };
-        super.open('login');
+    open(max = false){
+        super.open("login", max);
     }
 
     submit() {
