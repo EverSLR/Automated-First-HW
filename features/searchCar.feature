@@ -5,7 +5,7 @@ Feature: Car Search
 
     Scenario: A client must be able to Search a Car
         Given a client is on Home
-        When select Cars I will be able to customize my search
-        And i fill the requiered fields to search
-        Then i will be redirected to Cars Page
+        When user select Cars will be able to customize search
+        And user fill the requiered fields to search
+        Then user will be redirected to Cars Page
         And Cars displayed must match with city selected

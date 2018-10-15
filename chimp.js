@@ -3,7 +3,7 @@ module.exports = {
     watchTags: '@watch,@focus',
     path: './features',
     format: 'pretty',
-    tags: ['~@ignore','~@pending','~@login'],
+    tags: ['~@ignore','~@pending','~@login','~@searchCar'],
     webdriverio: {
         waitforTimeout: 20000
     }

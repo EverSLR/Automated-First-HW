@@ -6,14 +6,16 @@ class HomePage extends Page {
 
     matchCities = false;
 
+    rating = 1;
+
+    airport = false;
+
+    //Setters
     set cityToMatch(destiny) {
         this.city = destiny;
     }
 
-    get form() {
-        return browser.element('.filter');
-    }
-
+    //Getters
     get filterBtnRef() {
         return browser.element('#searchform');
     }
@@ -24,6 +26,7 @@ class HomePage extends Page {
             response = browser.elements('itemscontainer td');
         } else {
             response = "No Cars Found";
+            throw "No cars :c";
 
         }
         return response;
@@ -33,9 +36,27 @@ class HomePage extends Page {
         return browser.element('.itemscontainer')
     }
 
+    get starsRef () {
+        return browser.elements('.rating label');
+    }
+
+    get typeRef() {
+        return browser.elements('#collapse3 label');
+    }
+
+    get airportRef() {
+        return browser.element('select[name="pickup"]');
+    }
+
+    get airOptionsRef() {
+        return browser.getText('select[name="pickup"] option');
+    }
+
+    //Methods
     carsFound(){
         let cars = this.carList;
         if (cars !== "No Cars Found") {
+            console.log('No cars found');
         }
     }
 
@@ -47,13 +68,44 @@ class HomePage extends Page {
         } else {
             arrayCities = text;
         }
-
         this.matchCities = true;
         arrayCities.forEach(element => {
             if(element !== this.city) {
                 this.matchCities = false;
             }
         });
+    }
+
+    changeRating() {
+        this.rating = Math.floor(Math.random() * (this.starsRef.value.length -1 ) + 1);
+        console.log(`Rating: ${this.rating} Lenght => ${this.starsRef.value.length}`);
+        this.starsRef.value[this.rating].click();
+    }
+
+    changeType() {
+        this.size = Math.floor(Math.random() * (this.typeRef.value.length -1 ) + 1);
+        console.log(`Type Car: ${this.size} Lenght => ${this.typeRef.value.length}`);
+        this.typeRef.value[this.size].click();
+
+    }
+
+    changeAirportOption() {
+        let rand = Math.floor(Math.random() * (this.airOptionsRef.length - 1) + 1);
+        console.log(`Airport: ${rand} > 1 for Yes, 2 for No Lenght => ${this.airOptionsRef.length}`);
+        this.airportRef.selectByVisibleText(this.airOptionsRef[rand]);
+    }
+
+    changePriceRange(fromPrice, toPrice) { 
+        browser.moveToObject('#collapse2 .slider-track div:nth-child(2)');
+        browser.buttonDown();
+        browser.moveTo(null, fromPrice, 0);
+        browser.buttonUp();
+
+        browser.moveToObject('#collapse2 .slider-track div:nth-child(3)');
+        browser.buttonDown();
+        browser.moveTo(null, toPrice, 0);
+        browser.buttonUp();
+ 
     }
 
     open(max = false){
@@ -63,12 +115,6 @@ class HomePage extends Page {
     applyFilter() {
         this.filterBtnRef.click();
     }
-
-    submit() {
-        this.form.click();
-    }
-
-
 }
 
 export default new HomePage();

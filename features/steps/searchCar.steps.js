@@ -8,13 +8,13 @@ module.exports = function() {
         homePage.carRef.waitForVisible();
         });
 
-    this.When(/^select Cars I will be able to customize my search$/, function () {
+    this.When(/^user select Cars will be able to customize search$/, function () {
         // homePage.carRef.click();
         homePage.carRef.click();
         homePage.pickupLocRef.waitForVisible();
         });
 
-    this.When(/^i fill the requiered fields to search$/, function () {
+    this.When(/^user fill the requiered fields to search$/, function () {
         // Write code here that turns the phrase above into concrete actions
         homePage.pickupLocRef.selectByVisibleText('Manchester');
         homePage.selPickupDate();
@@ -22,10 +22,9 @@ module.exports = function() {
         homePage.selPickupTime();
         homePage.selDropoffTime();
         homePage.submit();
-        browser.pause(5000);
         });
 
-    this.Then(/^i will be redirected to Cars Page$/, function () {
+    this.Then(/^user will be redirected to Cars Page$/, function () {
         // Write code here that turns the phrase above into concrete actions
         carsPage.carsContainer.isVisible();
         //Find if cars or message present and matching with search
@@ -38,6 +37,7 @@ module.exports = function() {
         carsPage.matchList();
         console.log(carsPage.matchCities);
         expect(carsPage.matchCities).toEqual(true);
+        
         });
 
 }
